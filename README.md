@@ -1,46 +1,61 @@
 # Eloi Live MVP
 
+> [!CAUTION]
+> **PAID ELOI IMAGE LICENSE REQUIRED.** Unless you have written authorization from the rights holder, using Eloi's identity, likeness, or images requires a **US$9.99 Single Project License**. Unauthorized copying, publishing, commercial use, model training, resale, or other misuse may lead to takedown requests, damages claims, and legal action. Contact [zerencontact@sina.com](mailto:zerencontact@sina.com) to receive the official PayPal checkout link.
+
 <p align="center">
-  <img src="assets/eloi-turnaround.png" alt="Eloi digital presenter reference sheet" width="920">
+  <img src="assets/eloi-live-overview.png" alt="Eloi Live bilingual AI digital presenter overview" width="960">
 </p>
 
-<p align="center"><strong>Build Eloi as an English/French AI digital presenter for OBS livestreams.</strong></p>
+<p align="center">
+  <strong>A bilingual AI digital presenter for live commerce, shoppable video, AI stories, and more.</strong>
+</p>
 
-<p align="center"><strong>English</strong> · <a href="README.fr.md">Français</a></p>
+<p align="center">
+  <a href="assets/eloi-live-overview.pptx"><strong>Download the editable one-page PowerPoint</strong></a>
+  ·
+  <strong>English</strong>
+  ·
+  <a href="README.fr.md">Français</a>
+</p>
 
-> [!IMPORTANT]
-> This repository is a **Codex Skill**, not a finished livestream application. It gives Codex the architecture, character rules, assets, state logic, and verification checklist needed to build or adapt an Eloi livestream experience in your project.
+> [!NOTE]
+> This repository is an implementation package, not a hosted livestream application. It provides the architecture, character rules, state assets, example configuration, and verification checklist needed to integrate Eloi into a web, video, or OBS workflow.
 
-> [!WARNING]
-> The software is MIT-licensed, but **Eloi's identity and images are proprietary**. External use requires written authorization or a **USD 9.99 Single Project License**. See [Eloi image licensing](#eloi-image-licensing).
+## What Eloi Live does
 
-## In one sentence
-
-An operator or viewer types or speaks, an AI produces an English or French reply, Eloi speaks it with a warm female voice, her visual state changes automatically, and OBS receives a transparent character layer.
-
-## How a live interaction works
+An operator or viewer types or speaks, an AI produces an English or French reply, Eloi speaks it with a warm female voice, her visual state changes automatically, and OBS receives a transparent presenter layer.
 
 ```text
-Viewer or operator
-      │
-      ├── types in the web control page
-      └── speaks through the microphone
-                    │
-                    ▼
-          Speech-to-text, if needed
-                    │
-                    ▼
-           Configured AI endpoint
-          English or French reply
-                    │
-          ┌─────────┴─────────┐
-          ▼                   ▼
-  Eloi visual state      Female bilingual TTS
- idle/thinking/tip/error       │
-          └─────────┬─────────┘
-                    ▼
-       Transparent OBS Browser Source
+Text input or microphone
+          │
+          ▼
+Speech-to-text, if needed
+          │
+          ▼
+Configured AI endpoint
+English or French reply
+          │
+    ┌─────┴─────┐
+    ▼           ▼
+Visual state   Bilingual TTS
+    └─────┬─────┘
+          ▼
+Transparent OBS Browser Source
 ```
+
+## Application scenarios
+
+| Scenario | How Eloi can be used |
+| --- | --- |
+| **Livestream rooms** | Virtual host, co-host, chat responder, product guide, or multilingual presenter. |
+| **Shoppable videos** | Product demonstrations, feature explanations, offers, calls to action, and reusable sales clips. |
+| **AI stories and episodic content** | Recurring character, interactive fiction, scripted scenes, educational stories, or short-form series. |
+| **Multilingual social video** | English/French versions of Reels, Shorts, TikTok videos, and community updates. |
+| **Brand and product explainers** | Product introductions, feature walkthroughs, release announcements, and campaign content. |
+| **Tutorials and onboarding** | Step-by-step guidance, course content, software onboarding, and FAQ videos. |
+| **Virtual events and webinars** | Event host, session introduction, agenda guide, transition presenter, or recap speaker. |
+| **Customer and community content** | Help-center videos, welcome messages, community moderation prompts, and service updates. |
 
 ## Eloi's four live states
 
@@ -65,42 +80,32 @@ Viewer or operator
   </tr>
 </table>
 
-The four PNG files contain real alpha transparency and are intended for a bottom-anchored OBS overlay.
+The four PNG files use alpha transparency and are intended for a bottom-anchored OBS overlay.
 
-## What this Skill helps Codex build
+## Included implementation scope
 
-- a web control page for English and French text input;
+- English and French text input;
 - microphone capture after an explicit user action;
 - optional speech-to-text;
-- an adapter for your chosen AI endpoint;
+- an adapter for the selected AI endpoint;
 - warm adult female English/French text-to-speech;
 - deterministic `idle`, `thinking`, `tip`, and `error` transitions;
 - a separate transparent route for OBS Browser Source;
 - recovery behavior for microphone, network, AI, and TTS failures.
 
-It does not include a hosted AI service, API credits, streaming-platform accounts, Live2D rigging, or a finished 3D model.
+The package does not include a hosted AI service, API credits, streaming-platform accounts, Live2D rigging, or a finished 3D model.
 
 ## Quick start
 
-### 1. Install the Skill
+### 1. Obtain image authorization
 
-Copy this folder to your Codex Skills directory:
+Before publishing Eloi, request written authorization or purchase the **US$9.99 Single Project License** through the official PayPal link supplied by the rights holder.
 
-```text
-~/.codex/skills/eloi-live-mvp
-```
+### 2. Follow the implementation guide
 
-### 2. Ask Codex to build the experience
+Use [SKILL.md](SKILL.md) as the build specification. Copy the state assets and [example configuration](assets/eloi-live.config.example.json) into the target project.
 
-```text
-$eloi-live-mvp Build an English/French Eloi digital presenter with text input,
-microphone input, female bilingual TTS, automatic visual states, and a
-transparent OBS overlay.
-```
-
-### 3. Connect your AI and voice services
-
-Start from [the example configuration](assets/eloi-live.config.example.json):
+### 3. Connect AI and voice services
 
 ```json
 {
@@ -118,7 +123,7 @@ Start from [the example configuration](assets/eloi-live.config.example.json):
 }
 ```
 
-Codex should adapt the endpoint and provider settings to the target project instead of exposing API keys in browser code.
+Keep provider credentials on the server. Do not expose API keys in browser code.
 
 ### 4. Add the overlay to OBS
 
@@ -135,33 +140,34 @@ The repository uses two separate license layers:
 
 | Material | License |
 | --- | --- |
-| Skill instructions, example configuration, and original software code | [MIT License](LICENSE) |
+| Implementation instructions, example configuration, and original software code | [MIT License](LICENSE) |
 | Eloi identity, likeness, character design, and `assets/eloi-*.png` | [Proprietary Eloi Asset License](LICENSE-ELOI-ASSETS.md) |
 
-Before using Eloi in a livestream, video, website, application, advertisement, product, or social-media channel, obtain either:
+Before using Eloi in a livestream, video, website, application, advertisement, product, social-media channel, dataset, or model-training workflow, obtain either:
 
 1. written authorization from the rights holder; or
-2. a **USD 9.99 Single Project License**.
+2. a **US$9.99 Single Project License**.
 
 **Licensing contact:** [zerencontact@sina.com](mailto:zerencontact@sina.com)<br>
 **Suggested subject:** `Eloi License - [Project Name]`
 
 Describe the project, product, website, application, or channel that will use Eloi. The rights holder will send the official PayPal checkout link. The license becomes active only after PayPal confirms completed payment.
 
-Cloning, downloading, forking, or installing this repository does **not** grant permission to publish or commercially use Eloi.
+Cloning, downloading, forking, or installing this repository does **not** grant permission to publish, commercialize, train on, resell, sublicense, or create derivative character assets from Eloi. The rights holder reserves all available remedies against unauthorized use.
 
 ## Repository map
 
 ```text
 eloi-live-mvp/
-├── SKILL.md                              Codex workflow and safeguards
+├── SKILL.md                              Implementation workflow and safeguards
 ├── README.md                            English documentation
 ├── README.fr.md                         French documentation
 ├── LICENSE                              MIT software license
 ├── LICENSE-ELOI-ASSETS.md               Eloi image license
-├── agents/openai.yaml                   Skill display metadata
+├── agents/openai.yaml                   Package display metadata
 ├── assets/
-│   ├── eloi-turnaround.png              Canonical visual reference
+│   ├── eloi-live-overview.pptx          Editable one-page project overview
+│   ├── eloi-live-overview.png           Rendered overview for this README
 │   ├── eloi-idle.png                    Normal listening state
 │   ├── eloi-thinking.png                AI processing state
 │   ├── eloi-tip.png                     Advice state
@@ -172,7 +178,7 @@ eloi-live-mvp/
     └── character-contract.md            Eloi identity and voice rules
 ```
 
-## Character and implementation references
+## References
 
 - [Eloi character and voice contract](references/character-contract.md)
 - [Live architecture and state machine](references/architecture.md)

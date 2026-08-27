@@ -1,46 +1,61 @@
 # Eloi Live MVP
 
+> [!CAUTION]
+> **LICENCE D'IMAGE ELOI PAYANTE OBLIGATOIRE.** Sans autorisation écrite du détenteur des droits, l'utilisation de l'identité, de l'apparence ou des images d'Eloi exige une **licence Projet Unique de 9,99 USD**. Toute copie, publication, exploitation commerciale, utilisation pour entraîner un modèle, revente ou autre usage non autorisé peut entraîner des demandes de retrait, des demandes de dommages-intérêts et des poursuites judiciaires. Contactez [zerencontact@sina.com](mailto:zerencontact@sina.com) pour recevoir le lien de paiement PayPal officiel.
+
 <p align="center">
-  <img src="assets/eloi-turnaround.png" alt="Planche de référence de la présentatrice numérique Eloi" width="920">
+  <img src="assets/eloi-live-overview.png" alt="Présentation d'Eloi Live, présentatrice numérique IA bilingue" width="960">
 </p>
 
-<p align="center"><strong>Créez Eloi comme présentatrice numérique IA bilingue pour vos directs OBS.</strong></p>
+<p align="center">
+  <strong>Une présentatrice numérique IA bilingue pour le live commerce, les vidéos de vente, les fictions IA et bien plus.</strong>
+</p>
 
-<p align="center"><a href="README.md">English</a> · <strong>Français</strong></p>
+<p align="center">
+  <a href="assets/eloi-live-overview.pptx"><strong>Télécharger la présentation PowerPoint modifiable d'une page</strong></a>
+  ·
+  <a href="README.md">English</a>
+  ·
+  <strong>Français</strong>
+</p>
 
-> [!IMPORTANT]
-> Ce dépôt contient un **Skill Codex**, et non une application de direct déjà terminée. Il fournit à Codex l'architecture, les règles du personnage, les ressources visuelles, la logique d'états et la liste de vérifications nécessaires pour construire ou adapter une expérience de direct avec Eloi.
+> [!NOTE]
+> Ce dépôt est un kit d'implémentation, et non une application de direct hébergée. Il fournit l'architecture, les règles du personnage, les ressources d'état, une configuration d'exemple et la liste de vérifications nécessaires pour intégrer Eloi dans un workflow web, vidéo ou OBS.
 
-> [!WARNING]
-> Le logiciel est sous licence MIT, mais **l'identité et les images d'Eloi sont propriétaires**. Toute utilisation externe exige une autorisation écrite ou une **licence Projet Unique de 9,99 USD**. Consultez [la licence des images d'Eloi](#licence-des-images-deloi).
+## Fonctionnement d'Eloi Live
 
-## En une phrase
-
-L'opérateur ou le public écrit ou parle, une IA prépare une réponse en français ou en anglais, Eloi la prononce avec une voix féminine chaleureuse, son état visuel change automatiquement et OBS reçoit un calque transparent du personnage.
-
-## Déroulement d'une interaction en direct
+L'opérateur ou le public écrit ou parle, une IA prépare une réponse en français ou en anglais, Eloi la prononce avec une voix féminine chaleureuse, son état visuel change automatiquement et OBS reçoit un calque transparent de la présentatrice.
 
 ```text
-Public ou opérateur
-      │
-      ├── écrit dans la page de contrôle
-      └── parle dans le microphone
-                    │
-                    ▼
-      Reconnaissance vocale, si nécessaire
-                    │
-                    ▼
-              Endpoint IA configuré
-         Réponse en français ou en anglais
-                    │
-          ┌─────────┴─────────┐
-          ▼                   ▼
-   État visuel d'Eloi     Voix féminine bilingue
- idle/thinking/tip/error          │
-          └─────────┬────────────┘
-                    ▼
-          Browser Source OBS transparent
+Texte ou microphone
+        │
+        ▼
+Reconnaissance vocale, si nécessaire
+        │
+        ▼
+Endpoint IA configuré
+Réponse en français ou en anglais
+        │
+   ┌────┴────┐
+   ▼         ▼
+État visuel  Voix bilingue
+   └────┬────┘
+        ▼
+Browser Source OBS transparent
 ```
+
+## Cas d'usage
+
+| Scénario | Utilisation possible d'Eloi |
+| --- | --- |
+| **Plateaux de direct** | Présentatrice virtuelle, co-animatrice, réponse au chat, guide produit ou présentation multilingue. |
+| **Vidéos de vente** | Démonstrations produit, explication des fonctionnalités, offres, appels à l'action et clips commerciaux réutilisables. |
+| **Fictions IA et contenus en série** | Personnage récurrent, fiction interactive, scènes scénarisées, récits éducatifs ou séries courtes. |
+| **Vidéos sociales multilingues** | Versions françaises et anglaises de Reels, Shorts, TikTok et actualités communautaires. |
+| **Présentation de marque et de produit** | Introduction produit, démonstration des fonctions, annonce de lancement et contenu de campagne. |
+| **Tutoriels et onboarding** | Guides pas à pas, cours, prise en main d'un logiciel et vidéos FAQ. |
+| **Événements virtuels et webinaires** | Animation, introduction des sessions, présentation de l'agenda, transitions et récapitulatifs. |
+| **Contenus client et communauté** | Vidéos d'aide, messages de bienvenue, consignes de modération et actualités de service. |
 
 ## Les quatre états d'Eloi
 
@@ -65,42 +80,32 @@ Public ou opérateur
   </tr>
 </table>
 
-Les quatre fichiers PNG disposent d'une véritable transparence alpha et sont conçus pour un calque OBS ancré en bas de l'écran.
+Les quatre fichiers PNG utilisent une transparence alpha et sont conçus pour un calque OBS ancré en bas de l'écran.
 
-## Ce que le Skill aide Codex à construire
+## Périmètre d'implémentation inclus
 
-- une page web de contrôle pour les textes en français et en anglais ;
-- un microphone activé uniquement après une action explicite ;
-- une reconnaissance vocale facultative ;
-- un adaptateur vers l'endpoint IA choisi ;
-- une voix féminine adulte bilingue français/anglais ;
-- des transitions déterministes entre `idle`, `thinking`, `tip` et `error` ;
-- une route transparente séparée pour OBS Browser Source ;
-- une récupération propre après les erreurs de microphone, de réseau, d'IA ou de synthèse vocale.
+- saisie de texte en français et en anglais ;
+- microphone activé uniquement après une action explicite ;
+- reconnaissance vocale facultative ;
+- adaptateur vers l'endpoint IA choisi ;
+- voix féminine adulte bilingue français/anglais ;
+- transitions déterministes entre `idle`, `thinking`, `tip` et `error` ;
+- route transparente séparée pour OBS Browser Source ;
+- récupération propre après les erreurs de microphone, de réseau, d'IA ou de synthèse vocale.
 
-Le dépôt ne fournit pas de service IA hébergé, de crédits API, de compte de plateforme de streaming, de rig Live2D ni de modèle 3D terminé.
+Le kit ne fournit pas de service IA hébergé, de crédits API, de compte de plateforme de streaming, de rig Live2D ni de modèle 3D terminé.
 
 ## Démarrage rapide
 
-### 1. Installer le Skill
+### 1. Obtenir l'autorisation d'image
 
-Copiez ce dossier dans votre répertoire de Skills Codex :
+Avant toute publication d'Eloi, demandez une autorisation écrite ou achetez la **licence Projet Unique de 9,99 USD** via le lien PayPal officiel fourni par le détenteur des droits.
 
-```text
-~/.codex/skills/eloi-live-mvp
-```
+### 2. Suivre le guide d'implémentation
 
-### 2. Demander à Codex de construire l'expérience
-
-```text
-$eloi-live-mvp Build an English/French Eloi digital presenter with text input,
-microphone input, female bilingual TTS, automatic visual states, and a
-transparent OBS overlay.
-```
+Utilisez [SKILL.md](SKILL.md) comme spécification de construction. Copiez les ressources d'état et [la configuration d'exemple](assets/eloi-live.config.example.json) dans le projet cible.
 
 ### 3. Connecter les services IA et vocaux
-
-Partez de [la configuration d'exemple](assets/eloi-live.config.example.json) :
 
 ```json
 {
@@ -118,7 +123,7 @@ Partez de [la configuration d'exemple](assets/eloi-live.config.example.json) :
 }
 ```
 
-Codex doit adapter l'endpoint et les fournisseurs au projet cible sans exposer de clé API dans le navigateur.
+Conservez les identifiants des fournisseurs sur le serveur. N'exposez aucune clé API dans le code du navigateur.
 
 ### 4. Ajouter le calque dans OBS
 
@@ -135,10 +140,10 @@ Le dépôt utilise deux licences distinctes :
 
 | Contenu | Licence |
 | --- | --- |
-| Instructions du Skill, configuration d'exemple et code logiciel original | [Licence MIT](LICENSE) |
+| Instructions d'implémentation, configuration d'exemple et code logiciel original | [Licence MIT](LICENSE) |
 | Identité, apparence, conception d'Eloi et fichiers `assets/eloi-*.png` | [Licence propriétaire Eloi](LICENSE-ELOI-ASSETS.md) |
 
-Avant d'utiliser Eloi dans un direct, une vidéo, un site, une application, une publicité, un produit ou une chaîne sociale, obtenez :
+Avant d'utiliser Eloi dans un direct, une vidéo, un site, une application, une publicité, un produit, une chaîne sociale, un jeu de données ou un entraînement de modèle, obtenez :
 
 1. une autorisation écrite du détenteur des droits ; ou
 2. une **licence Projet Unique de 9,99 USD**.
@@ -148,20 +153,21 @@ Avant d'utiliser Eloi dans un direct, une vidéo, un site, une application, une 
 
 Décrivez le projet, le produit, le site, l'application ou la chaîne qui utilisera Eloi. Le détenteur des droits vous enverra le lien de paiement PayPal officiel. La licence devient active uniquement après confirmation du paiement par PayPal.
 
-Le clonage, le téléchargement, le fork ou l'installation de ce dépôt ne donne **aucun droit** de publier ou d'exploiter commercialement Eloi.
+Le clonage, le téléchargement, le fork ou l'installation de ce dépôt ne donne **aucun droit** de publier, commercialiser, utiliser pour l'entraînement, revendre, sous-licencier ou créer des ressources dérivées à partir d'Eloi. Le détenteur des droits se réserve tous les recours disponibles contre toute utilisation non autorisée.
 
 ## Organisation du dépôt
 
 ```text
 eloi-live-mvp/
-├── SKILL.md                              Workflow Codex et règles de sécurité
+├── SKILL.md                              Workflow d'implémentation et garde-fous
 ├── README.md                            Documentation anglaise
 ├── README.fr.md                         Documentation française
 ├── LICENSE                              Licence logicielle MIT
 ├── LICENSE-ELOI-ASSETS.md               Licence des images d'Eloi
-├── agents/openai.yaml                   Métadonnées du Skill
+├── agents/openai.yaml                   Métadonnées d'affichage du kit
 ├── assets/
-│   ├── eloi-turnaround.png              Référence visuelle principale
+│   ├── eloi-live-overview.pptx          Présentation modifiable d'une page
+│   ├── eloi-live-overview.png           Aperçu rendu pour ce README
 │   ├── eloi-idle.png                    État d'écoute normal
 │   ├── eloi-thinking.png                État de traitement IA
 │   ├── eloi-tip.png                     État de conseil
@@ -172,7 +178,7 @@ eloi-live-mvp/
     └── character-contract.md            Règles d'identité et de voix d'Eloi
 ```
 
-## Références du personnage et de l'implémentation
+## Références
 
 - [Contrat d'identité et de voix d'Eloi](references/character-contract.md)
 - [Architecture du direct et machine à états](references/architecture.md)
