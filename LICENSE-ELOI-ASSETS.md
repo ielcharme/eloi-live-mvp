@@ -6,7 +6,7 @@ This is a proprietary asset license. It is separate from the MIT License that ap
 
 ## 1. Covered Materials
 
-This license covers the Eloi character identity, distinctive design and likeness described in `references/character-contract.md`, the bundled `assets/eloi-*.png` image files, and visual derivatives based on those materials. It does not cover `assets/zerendo-live.config.example.json` or the Zerendo reasoning software.
+This license covers the Eloi character identity, distinctive design and likeness described in `references/character-contract.md`, the bundled `assets/eloi-*.png` image files, and visual derivatives based on those materials. It does not cover `assets/eloi-live.config.example.json` or the AI integration software.
 
 ## 2. Ownership
 
@@ -60,10 +60,10 @@ The Covered Materials are provided as available and without warranties to the ma
 ## 10. Official Contact And PayPal Purchase Channel
 
 - Authorization and licensing contact: `zerencontact@sina.com`
-- Payment processor: PayPal, using the existing first-party ZEREN PayPal checkout integration
+- Payment processor: PayPal, using the rights holder's official checkout
 - Price: USD 9.99 for one Single Project License
 
-To purchase, email `zerencontact@sina.com` with the subject `Eloi License - [Project Name]` and identify the project, product, website, application, or channel that will use Eloi. The rights holder will return the official PayPal checkout link generated through the existing ZEREN PayPal integration.
+To purchase, email `zerencontact@sina.com` with the subject `Eloi License - [Project Name]` and identify the project, product, website, application, or channel that will use Eloi. The rights holder will return the official PayPal checkout link.
 
 The license becomes effective only after PayPal reports the payment as completed. The buyer should retain the PayPal receipt and the project-identification email as proof. A payment request, pending transaction, canceled payment, or payment to an unofficial PayPal account does not grant a license.
 

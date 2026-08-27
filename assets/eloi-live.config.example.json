@@ -1,6 +1,6 @@
 {
-  "zerendo": {
-    "endpoint": "/api/agent/advice",
+  "assistant": {
+    "endpoint": "/api/assistant/reply",
     "replyLanguages": ["en", "fr"]
   },
   "presenter": {

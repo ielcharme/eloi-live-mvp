@@ -1,35 +1,34 @@
-# Zerendo Live MVP Architecture
+# Eloi Live MVP Architecture
 
 ## Component Boundary
 
 ```text
-Input UI
+Control page
   text | microphone
         |
         v
 Input adapter / optional speech-to-text
         |
         v
-Live controller -----> avatar state store
+Live controller -----> Eloi state store
         |
         v
-Zerendo adapter -----> policy and response normalizer
+AI adapter ----------> response normalizer
         |                         |
         v                         v
 TTS adapter ----------------> audio player
         |                         |
-        +-------------> presenter pack / transparent overlay
+        +----------------> transparent Eloi overlay
 ```
 
-Keep adapters small enough to replace independently:
+Keep each adapter replaceable:
 
 - `input`: text submission and explicit microphone capture.
 - `stt`: browser or server transcription; absent in text-only mode.
-- `zerendo`: calls an existing backend or a configured model endpoint.
-- `tts`: converts normalized `speech` and `language` into playable audio using the presenter's configured voice.
-- `presenter`: declares identity, voice profile, and the four state assets without changing Zerendo's response contract.
-- `avatar`: maps approved presenter states to local transparent images.
-- `transport`: direct HTTP for a single page; WebSocket or SSE only when a separate control page and OBS overlay must stay synchronized.
+- `assistant`: calls the configured AI backend.
+- `tts`: converts normalized speech into Eloi's configured English/French voice.
+- `avatar`: maps the four approved Eloi states to transparent local images.
+- `transport`: direct HTTP for one page; WebSocket or SSE only when the control page and OBS overlay must stay synchronized.
 
 ## Suggested Event Shape
 
@@ -48,21 +47,21 @@ Supported MVP event types:
 
 - `user.text`
 - `user.speech.transcript`
-- `zerendo.reply.started`
-- `zerendo.reply.completed`
-- `zerendo.reply.failed`
+- `assistant.reply.started`
+- `assistant.reply.completed`
+- `assistant.reply.failed`
 - `tts.started`
 - `tts.completed`
 - `tts.failed`
 
-Generate event and request IDs locally. Ignore unknown event types.
+Generate request and event IDs locally. Ignore unknown event types.
 
-## Zerendo Adapter
+## AI Adapter
 
-Inspect the target project before choosing the endpoint. Convert its result into:
+Inspect the target project's current endpoint and convert its result into:
 
 ```ts
-type ZerendoLiveReply = {
+type EloiLiveReply = {
   speech: string;
   language: "en" | "fr";
   state: "idle" | "thinking" | "tip" | "error";
@@ -70,11 +69,9 @@ type ZerendoLiveReply = {
 };
 ```
 
-Keep spoken replies short by default. If the source answer is long, speak a concise summary and leave the full answer in the control UI. Preserve citations in the control UI when the underlying Zerendo answer provides them; do not read raw URLs aloud.
+Keep spoken replies concise. If the source answer is long, speak a short summary and retain the full text in the control page. Keep citations visible in the control page and do not read raw URLs aloud.
 
 ## State Controller
-
-Use a deterministic state machine rather than allowing arbitrary model output:
 
 ```text
 idle
@@ -89,27 +86,23 @@ error
   -> idle                    recovery timeout or new input
 ```
 
-Use the latest request ID as the state owner. A late response with a different ID must be discarded.
+The latest request ID owns the state. Discard any late response with a different ID.
 
 ## Browser And OBS Contract
 
 - Set `html`, `body`, and the app root to transparent backgrounds.
-- Do not render instruction text, controls, or debugging information in overlay mode.
-- Keep controls on a separate route or hide them behind `?mode=control`.
-- Keep the character anchored to the bottom center with a stable box and `object-fit: contain`.
+- Keep controls and debug information off the overlay route.
+- Anchor Eloi to the bottom center with a stable stage and `object-fit: contain`.
 - Preserve alpha transparency in source PNG files.
-- Normalize the presenter's rendered height instead of assuming identical source-canvas dimensions.
-- Recommended initial OBS dimensions: `1920x1080` landscape and `1080x1920` portrait.
-- Provide a query parameter such as `?scale=0.9` only when the implementation validates and clamps it.
+- Normalize rendered height because source canvas dimensions vary slightly.
+- Start with `1920x1080` landscape and `1080x1920` portrait OBS dimensions.
 
 ## Failure Behavior
 
-Map failures to a safe local response:
-
-- microphone denied: stop capture, show the control-page error, keep avatar usable by text;
-- transcription failed: `error`, then return to `idle`;
-- Zerendo unavailable: speak only if a pre-approved local fallback exists;
-- TTS failed: show the text reply and recover to `idle`;
-- missing image: render `idle` if available, otherwise a transparent empty stage with a control-page error.
+- microphone denied: stop capture, show a control-page error, and keep text input available;
+- transcription failed: show `error`, then return to `idle`;
+- AI backend unavailable: use `error` unless a pre-approved local fallback exists;
+- TTS failed: keep the written reply visible and recover to `idle`;
+- image missing: fall back to `idle`, or show an empty transparent stage with a control-page error.
 
 Never expose stack traces, credentials, raw prompts, or provider payloads in the OBS overlay.

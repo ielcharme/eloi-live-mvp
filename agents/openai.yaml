@@ -1,7 +1,7 @@
 interface:
-  display_name: "Zerendo Live MVP"
-  short_description: "Build Zerendo with a replaceable bilingual presenter"
-  default_prompt: "Use $zerendo-live-mvp to build a transparent OBS-ready Zerendo experience with Eloi as the presenter and web or microphone input."
+  display_name: "Eloi Live MVP"
+  short_description: "Build Eloi as a bilingual AI livestream presenter"
+  default_prompt: "Use $eloi-live-mvp to build Eloi as an English/French AI digital presenter with web or microphone input and a transparent OBS overlay."
   icon_small: "./assets/eloi-idle.png"
   icon_large: "./assets/eloi-turnaround.png"
   brand_color: "#52605A"
