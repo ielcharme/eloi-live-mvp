@@ -1,0 +1,33 @@
+{
+  "zerendo": {
+    "endpoint": "/api/agent/advice",
+    "replyLanguages": ["en", "fr"]
+  },
+  "presenter": {
+    "id": "eloi",
+    "displayName": "Eloi"
+  },
+  "speech": {
+    "inputEnabled": true,
+    "retainRecordings": false,
+    "preferredVoiceGender": "female",
+    "preferredVoiceAge": "adult",
+    "preferredVoiceStyle": "warm-clear-natural",
+    "preferredVoiceMode": "single-multilingual-voice"
+  },
+  "avatar": {
+    "defaultState": "idle",
+    "states": {
+      "idle": "./assets/eloi-idle.png",
+      "thinking": "./assets/eloi-thinking.png",
+      "tip": "./assets/eloi-tip.png",
+      "error": "./assets/eloi-error.png"
+    },
+    "errorRecoveryMs": 3000
+  },
+  "overlay": {
+    "transparent": true,
+    "landscape": { "width": 1920, "height": 1080 },
+    "portrait": { "width": 1080, "height": 1920 }
+  }
+}
